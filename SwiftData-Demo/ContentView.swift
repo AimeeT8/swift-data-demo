@@ -12,19 +12,30 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var context
     
-    
+    @Query private var items: [DataItem]
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            List(items) { item in
+                Text(item.creationDate.description)
+                
+                
+            }
+            Button("Add") {
+                // create a new data item
+                let data = DataItem()
+                
+                //Add it to the database
+                context.insert(data)
+            }
         }
         .padding()
     }
 }
 
 #Preview {
+   
+    
     ContentView()
+        .modelContainer(for: DataItem.self)
 }
