@@ -17,8 +17,24 @@ struct ContentView: View {
     var body: some View {
         VStack {
             List(items) { item in
-                Text(item.creationDate.description)
-                
+                HStack {
+                    
+                    
+                    Text(item.creationDate.description)
+                    Spacer()
+                    Button("Update") {
+                        //update an item in the database.
+                        item.creationDate = Date()
+                    }
+                    
+                }
+                .swipeActions {
+                    Button("Delete") {
+                        
+                        //Delete an item from the database:
+                        context.delete(item)
+                    }
+                }
                 
             }
             Button("Add") {
